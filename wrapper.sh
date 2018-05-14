@@ -30,17 +30,7 @@ uri=$(echo "$uri" | sed 's/://g')
 uri=$(echo "$uri" | sed 's/^./\L&\E/')
 uri="/mnt/$uri"
 
-# mounting the drive if its not mounted
 
-uri_letter=${uri:5:1}
-uri_root_ls=$(ls -A "/mnt/$uri_letter")
-
-if [ ! -d "$uri" ] || [ -z "$uri_root_ls" ]; then
-  echo "wsl: attempting to mount drive $uri_letter:"
-
-  wsl_sudo "mkdir -p /mnt/$uri_letter"
-  wsl_sudo "sudo mount -t drvfs $uri_letter: /mnt/$uri_letter"
-fi
 
 cd "$uri"
 

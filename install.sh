@@ -26,18 +26,6 @@ chmod +x bin/linux/wsl-alias
 
 mkdir -p bin/win
 
-if [ $(grep -c '^wsl:' /etc/passwd) == 1 ]; then
-	echo "The wsl user already exists - skipping creation"
-else
-	echo "I need root access to setup a new user that will be used for pre-mounting drives"
-
-	sudo useradd -s /bin/bash -G sudo wsl
-	sudo passwd -l wsl
-
-	sudo su -c "echo 'wsl ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers"
-	sudo su -c "echo '$user ALL=(wsl) NOPASSWD:ALL' >> /etc/sudoers"
-fi
-
 echo
 
 if [ -z "$(ls -A bin/win)" ]; then
